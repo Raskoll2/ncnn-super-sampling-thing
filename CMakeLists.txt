@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(SuperSamplingInference)
 
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+
 set(CMAKE_CXX_STANDARD 17)
 
 # 1. Use absolute path for ncnn to avoid '~' expansion issues in CMake
@@ -16,5 +18,14 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_executable(upscaler main.cpp)
 
-# 4. Use ${OpenCV_LIBS} which contains the list of all OpenCV library files
-target_link_libraries(upscaler ncnn ${OpenCV_LIBS})
+target_link_libraries(upscaler 
+    ncnn 
+    ${OpenCV_LIBS} 
+    zlib 
+    jpeg 
+    png 
+    pthread 
+    dl
+)
+
+
